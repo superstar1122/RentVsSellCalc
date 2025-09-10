@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rent vs Sell Calculator</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <h1 class="title">Rent vs. Sell Calculator</h1>
+    <main class="main-container">
+      <!-- start of container of graphic and data -->
+      <!-- start of container of graphic and data -->
+      <div class="data-container">
+        <section class="graphic-container">
+          <h2>
+            If you RENT OUT your property, you'll have $253,134 more wealth in
+            10 years
+          </h2>
+          <!-- Chart/graphic -->
+          <!-- Chart/graphic -->
+          <div class="chart-container">
+            <svg id="chart" width="600" height="400">
+              <!-- Grid lines will be added by JavaScript -->
+              <g id="gridLines"></g>
+              <!-- Chart lines will be added by JavaScript -->
+              <g id="chartLines"></g>
+              <!-- Data points will be added by JavaScript -->
+              <g id="dataPoints"></g>
+              <!-- Axes will be added by JavaScript -->
+              <g id="axes"></g>
+              <!-- Labels will be added by JavaScript -->
+              <g id="labels"></g>
+            </svg>
+          </div>
+          <!-- rent sell legend -->
+          <!-- rent sell legend -->
+          <div class="div-rent-sell">
+            <div class="rent-sell-item">
+              <div class="item-color rent-color"></div>
+              <span>Rent</span>
+            </div>
+            <div class="rent-sell-item">
+              <div class="item-color sell-color"></div>
+              <span>Sell</span>
+            </div>
+          </div>
+          <!-- sleader years -->
+          <!-- sleader years -->
+          <section class="slider-year">
+            <label for="yearsSlider"
+              >Move the slider to see the change per year</label
+            >
+            <input
+              type="range"
+              id="yearsSliderRange"
+              min="1"
+              max="10"
+              value="5"
+            />
+            <label class="range-number" id="yearsSliderLabel">5</label>
+          </section>
+          <section class="result-summary">
+            <div class="year result-summary-item">
+              YEAR <strong id="years_graphic_results">5</strong>
+            </div>
+            <div class="rent-out result-summary-item">
+              RENT OUT <strong id="summary_rent_out">$315,360</strong>
+            </div>
+            <div class="sell-now result-summary-item">
+              SELL NOW <strong id="summary_sell_out">$264,489</strong>
+            </div>
+            <div class="difference result-summary-item">
+              DIFFERENCE IN WEALTH
+              <strong id="summary_dif_wealth">$50,871</strong>
+            </div>
+          </section>
+        </section>
+
+        <section class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>
+                  Rental <br />
+                  Income
+                </th>
+                <th>Mortgage</th>
+                <th>Other <br />Costs</th>
+                <th>Net <br />Cash Flow</th>
+                <th>
+                  House <br />
+                  Value
+                </th>
+                <th>
+                  House <br />
+                  Equity
+                </th>
+                <th>
+                  Wealth <br />
+                  (Rent)
+                </th>
+                <th>
+                  Wealth <br />
+                  (Sell)
+                </th>
+                <th>
+                  Difference <br />
+                  in Wealth
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example Row -->
+              <tr>
+                <td>1</td>
+                <td>$27,600</td>
+                <td>-$16,105</td>
+                <td>-$11,148</td>
+                <td>-$185</td>
+                <td>$450,000</td>
+                <td>$225,162</td>
+                <td>$221,977</td>
+                <td>$209,500</td>
+                <td>$12,477</td>
+              </tr>
+              <!-- Repeat rows for each year -->
+            </tbody>
+          </table>
+        </section>
+
+        <section class="disclaimer">
+          <p>
+            <span>Disclaimer: </span>This data is provided for informational
+            purposes only and should not be relied upon as a guarantee of any
+            future result. Consult a qualified professional before making any
+            financial decisions. A positive difference in projected wealth does
+            not necessarily indicate positive monthly cash flow. It reflects
+            long-term equity growth, appreciation, and other factors that may
+            not translate into immediate income or liquidity.
+          </p>
+        </section>
+
+        <details class="details-table">
+          <summary>How to read this table</summary>
+          <p>
+            <strong>Rental Income:</strong> Expected rental income after vacancy
+            adjustments
+          </p>
+          <p>
+            <strong>Mortgage Expense:</strong> Annual mortgage payments
+            (principal + interest)
+          </p>
+          <p>
+            <strong>Other Costs:</strong> All ongoing expenses (property
+            management, maintenance, taxes, CapEx)
+          </p>
+          <p>
+            <strong>Net Cash Flow:</strong> Annual profit or loss from rental
+            operations
+          </p>
+          <p>
+            <strong>House Value:</strong> Estimated property value with
+            appreciation
+          </p>
+          <p>
+            <strong>House Equity:</strong> Property value minus remaining
+            mortgage
+          </p>
+          <p>
+            <strong>Wealth (Rent Out):</strong> Total wealth if renting until
+            this year then selling
+          </p>
+          <p>
+            <strong>Wealth (Sell Now):</strong> Potential wealth if selling now
+            and investing proceeds
+          </p>
+          <p>
+            <strong>Difference in Wealth:</strong> How much better (or worse)
+            renting out performs
+          </p>
+          <p>
+            Note: In the final year (10), selling costs are applied to the "Rent
+            Out" scenario, assuming you would sell the property at that point.
+          </p>
+        </details>
+      </div>
+
+      <!-- start of aside for inputs -->
+      <!-- start of aside for inputs -->
+      <div class="inputs-container">
+        <form class="inputs" id="formInputs">
+          <button type="button" id="exportBtn">Export as PDF</button>
+
+          <label>Home Value </label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="homeValueInput"
+              value="450000"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Price Paid </label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="pricePaidInput"
+              value="300000"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Original Mortgage </label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="originalMortgageInput"
+              value="250000"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Mortgage Balance</label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="mortgageBalanceInput"
+              value="200000"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Interest Rate (%) </label>
+          <input type="number" value="5.00" id="interestRateInput" />
+
+          <label>Mortgage Payment</label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="mortgagePaymentInput"
+              value="1342.05"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Property Taxes (%)</label>
+          <input type="number" value="1.60" id="propertyTaxesInput" />
+
+          <label>Homeowners Insurance ($/mo)</label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="homeownersInsuranceInput"
+              value="115"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Monthly Rent</label>
+          <div class="input-dollar-wrapper">
+            <span class="dollar-prefix">$</span>
+            <input
+              type="number"
+              id="monthlyRentInput"
+              value="2500"
+              class="advace-dollar-input"
+            />
+          </div>
+
+          <label>Appreciation Rate (%)</label>
+          <input type="number" value="3.50" id="appreciationRateInput" />
+
+          <label>Years to Hold</label>
+          <input
+            type="range"
+            min="1"
+            max="20"
+            value="10"
+            id="yearsToHoldRange"
+          />
+          <label class="range-number" id="yearsToHoldLabel">10</label>
+
+          <div>
+            <label> Primary Residence?</label>
+            <input type="checkbox" checked id="primaryResidenceCheckbox " />
+          </div>
+        </form>
+
+        <!-- section for advace inputs -->
+        <!-- section for advace inputs -->
+        <!-- section for advace inputs -->
+
+        <details class="advance-details">
+          <summary>Advance Inputs</summary>
+          <div class="advace-inputs">
+            <!-- make ready costs -->
+            <div class="advace-inputs-element">
+              <label>Make-Ready Costs</label>
+              <div class="input-dollar-wrapper">
+                <span class="dollar-prefix">$</span>
+                <input
+                  type="number"
+                  id="MakeReadyCostsInput"
+                  value="3000"
+                  class="advace-dollar-input"
+                />
+              </div>
+            </div>
+
+            <!--Annual Maintenance Costs -->
+            <div class="advace-inputs-element">
+              <label>Annual Maintenance Costs</label>
+              <input
+                type="number"
+                value="1"
+                readonly
+                id="annualMaintenanceCostsInput"
+              />
+              <input
+                type="range"
+                min="0"
+                max="5"
+                value="1"
+                id="annualMaintenanceCostsRange"
+              />
+              <label class="range-number" id="annualMaintenanceCostsLabel"
+                >5</label
+              >
+            </div>
+
+            <!--Refurbishing Costs to Sell Now-->
+            <div class="advace-inputs-element">
+              <label>Refurbishing Costs to Sell Now</label>
+              <input type="number" value="0" id="RefurbishingCostsSellInput" />
+            </div>
+
+            <!--Mortgage Term-->
+            <div class="advace-inputs-element">
+              <label>Mortgage Term</label>
+              <div class="div-btn-mortgageTerm">
+                <button class="btn-mortgageTerm" id="btn30years">
+                  30 years(360)
+                </button>
+                <button class="btn-mortgageTerm" id="btn15years">
+                  15 years(180)
+                </button>
+                <button class="btn-mortgageTerm" id="btnCustom">Custom</button>
+                <input
+                  type="number"
+                  value="0"
+                  hidden="true "
+                  id="mortgageTermCustomInput"
+                />
+              </div>
+            </div>
+
+            <!--Property Management Fee-->
+            <div class="advace-inputs-element">
+              <label>Property Management Fee</label>
+              <div class="divPropertyManagement">
+                <input
+                  type="number"
+                  value="137"
+                  id="propertyManagementFeeInput"
+                />
+                <button id="propertyManagementFeePercent">%</button>
+              </div>
+            </div>
+
+            <!--Annual Vacancy Rate -->
+            <div class="advace-inputs-element">
+              <label>Annual Vacancy Rate</label>
+              <input type="text" value="8" id="annualVacancyRateInput" />
+              <input
+                type="range"
+                min="0"
+                max="25"
+                value="2.2"
+                id="annualVacancyRateRange"
+              />
+              <label class="range-number" id="annualVacancyRateLabel">8%</label>
+            </div>
+
+            <!--Capital Expenditures (CapEx) -->
+            <div class="advace-inputs-element">
+              <label>Capital Expenditures (CapEx)</label>
+              <input type="number" value="5.00" id="capitalExpendituresInput" />
+              <input
+                type="range"
+                min="0"
+                max="15"
+                value="2.2"
+                id="capitalExpendituresRange"
+              />
+              <label class="range-number" id="capitalExpendituresLabel"
+                >5%</label
+              >
+              <div>
+                <input
+                  type="checkbox"
+                  checked
+                  id="capitalExpendituresChecbox"
+                />
+                <label> Include CapEx in calculations</label>
+              </div>
+            </div>
+
+            <!--Annual Rent Change -->
+            <div class="advace-inputs-element">
+              <label>Annual Rent Change</label>
+              <input type="number" value="3.00" id="annualRentChangeInput" />
+              <input
+                type="range"
+                min="-5"
+                max="10"
+                value="3"
+                id="annualRentChangeRange"
+              />
+              <label class="range-number" id="annualRentChangeLabel">3%</label>
+            </div>
+
+            <!--Realtor Commission -->
+            <div class="advace-inputs-element">
+              <label>Realtor Commission</label>
+              <input type="number" value="6.00" id="realtorCommissionInput" />
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value="6"
+                id="realtorCommissionRange"
+              />
+              <label class="range-number" id="realtorCommissionlabel">6%</label>
+            </div>
+
+            <!--Closing Costs -->
+            <div class="advace-inputs-element">
+              <label>Closing Costs</label>
+              <input type="number" value="3.00" id="closingCostsInputs" />
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value="3"
+                id="closingCostsRange"
+              />
+              <label class="range-number" id="closingCostsLabel">3%</label>
+            </div>
+
+            <!--Income Tax Rate -->
+            <div class="advace-inputs-element">
+              <label>Income Tax Rate</label>
+              <input type="number" value="10.00" id="incomeTaxRateInput" />
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value="10.00"
+                id="incomeTaxRateRange"
+              />
+              <label class="range-number" id="incomeTaxRateLabel">10%</label>
+            </div>
+
+            <!--Capital Gains Tax Rate -->
+            <div class="advace-inputs-element">
+              <label>Capital Gains Tax Rate</label>
+              <input
+                type="number"
+                value="15.00"
+                id="capitalGainsTaxRateInput"
+              />
+              <input
+                type="range"
+                min="0"
+                max="40"
+                value="15"
+                id="capitalGainsTaxRateRange"
+              />
+              <label class="range-number" id="capitalGainsTaxRateLabel"
+                >15%</label
+              >
+            </div>
+
+            <!--After-Tax Reinvestment Rate -->
+            <div class="advace-inputs-element">
+              <label>After-Tax Reinvestment Rate</label>
+              <input
+                type="number"
+                value="6.00"
+                id="AfterTaxReinvestmentRateInput"
+              />
+              <input
+                type="range"
+                min="0"
+                max="20"
+                value="6"
+                id="AfterTaxReinvestmentRateRange"
+              />
+              <label class="range-number" id="AfterTaxReinvestmentRateLabel"
+                >6%</label
+              >
+            </div>
+          </div>
+        </details>
+      </div>
+    </main>
+    <script src="js/app.js"></script>
+    <script src="js/chart.js"></script>
+  </body>
+</html>

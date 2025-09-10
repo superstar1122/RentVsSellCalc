@@ -12,8 +12,8 @@ A simple tool to help you decide whether to rent out or sell your property based
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/sharaneduard8/RentVsSellCalculator-.git
-    cd RentVsSellCalculator-
+    git clone https://github.com/sharaneduard8/RentVsSellCalc.git
+    cd RentVsSellCalc
     ```
 
 2. **Install dependencies:**
