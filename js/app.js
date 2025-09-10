@@ -252,30 +252,6 @@ function populateTable(inputs){
 
 /* ───────────────────────── SUMMARY UPDATE by odysseus  ─────────────── */
 /** ---------------start of inserted part ----------------- */
-// function updateSimulation(selectedYear){
-//   const inputs = getInputsFromForm();
-//   const fullData = simulate(inputs);
-//   const row = fullData.find(r=>r.Year===selectedYear) || fullData[fullData.length-1];
-
-//   summary_rent_out.textContent    = $fmt(row.wealthRent);
-//   summary_sell_out.textContent    = $fmt(row.wealthSell);
-//   summary_dif_wealth.textContent  = (row.diff>=0? "+" : "-") + $fmt(Math.abs(row.diff));
-
-//   // Update chart vertical line if using Chart.js
-//   if(window.myChart){
-//     window.myChart.options.plugins.annotation = {
-//       line1: {
-//         type: 'line',
-//         xMin: selectedYear-1,
-//         xMax: selectedYear-1,
-//         borderColor: 'red',
-//         borderWidth: 2,
-//         borderDash: [5,5]
-//       }
-//     };
-//     window.myChart.update();
-//   }
-// }
 function updateSimulation(selectedYear) {
   const inputs = getInputsFromForm();
   const fullData = simulate(inputs);
