@@ -93,9 +93,12 @@ formInputs.addEventListener("submit", e => {
   [capitalGainsTaxRateRange, capitalGainsTaxRateInput, capitalGainsTaxRateLabel],
   [AfterTaxReinvestmentRateRange, AfterTaxReinvestmentRateInput, AfterTaxReinvestmentRateLabel],
 ].forEach(([range,input,label])=>{
+  if(!range) return;
   range && range.addEventListener("input",()=>{
-    if (input)  input.value  = range.value;
+    const selectedYear = parseInt(yearsSliderRange.value);
+    if (input)  input.textContent  = range.value;
     if (label)  label.textContent = range.value;
+    updateSimulation(selectedYear);
   });
 });
 
@@ -246,6 +249,55 @@ function populateTable(inputs){
   summary_sell_out.textContent   = $fmt(last.wealthSell);
   summary_dif_wealth.textContent = (last.diff>=0? "+" : "-") + $fmt(Math.abs(last.diff));
 }
+
+/* ───────────────────────── SUMMARY UPDATE by odysseus  ─────────────── */
+/** ---------------start of inserted part ----------------- */
+// function updateSimulation(selectedYear){
+//   const inputs = getInputsFromForm();
+//   const fullData = simulate(inputs);
+//   const row = fullData.find(r=>r.Year===selectedYear) || fullData[fullData.length-1];
+
+//   summary_rent_out.textContent    = $fmt(row.wealthRent);
+//   summary_sell_out.textContent    = $fmt(row.wealthSell);
+//   summary_dif_wealth.textContent  = (row.diff>=0? "+" : "-") + $fmt(Math.abs(row.diff));
+
+//   // Update chart vertical line if using Chart.js
+//   if(window.myChart){
+//     window.myChart.options.plugins.annotation = {
+//       line1: {
+//         type: 'line',
+//         xMin: selectedYear-1,
+//         xMax: selectedYear-1,
+//         borderColor: 'red',
+//         borderWidth: 2,
+//         borderDash: [5,5]
+//       }
+//     };
+//     window.myChart.update();
+//   }
+// }
+function updateSimulation(selectedYear) {
+  const inputs = getInputsFromForm();
+  const fullData = simulate(inputs);
+
+  // update summary section
+  const row = fullData.find(r => r.Year === selectedYear);
+  if (row) {
+    summary_rent_out.textContent   = $fmt(row.wealthRent);
+    summary_sell_out.textContent   = $fmt(row.wealthSell);
+    summary_dif_wealth.textContent = (row.diff >= 0 ? "+" : "-") + $fmt(Math.abs(row.diff));
+  }
+
+  // move vertical dotted line in chart
+  if (window.chart) {
+    window.chart.drawVerticalLine(selectedYear);
+  }
+}
+
+
+
+/** --------------- end of inserted part ----------------- */
+
 
 /* ───────────────────────── 6.  INPUTS → OBJETO ------------------------ */
 function getInputsFromForm(){
