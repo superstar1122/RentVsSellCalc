@@ -105,6 +105,20 @@ class ChartRenderer {
         }
     }
 
+    drawLines() {
+        const chartLines = document.getElementById('chartLines');
+
+        // Draw rent line
+        const rentPath = this.createPathFromData(this.rentData);
+        rentPath.classList.add('chart-line', 'rent-line');
+        chartLines.appendChild(rentPath);
+
+        // Draw sell line
+        const sellPath = this.createPathFromData(this.sellData);
+        sellPath.classList.add('chart-line', 'sell-line');
+        chartLines.appendChild(sellPath);
+    }
+
     drawAxes() {
         const axes = document.getElementById('axes');
 
@@ -125,20 +139,6 @@ class ChartRenderer {
         yAxis.setAttribute('y2', this.height - this.margin.bottom);
         yAxis.classList.add('axis-line');
         axes.appendChild(yAxis);
-    }
-
-    drawLines() {
-        const chartLines = document.getElementById('chartLines');
-
-        // Draw rent line
-        const rentPath = this.createPathFromData(this.rentData);
-        rentPath.classList.add('chart-line', 'rent-line');
-        chartLines.appendChild(rentPath);
-
-        // Draw sell line
-        const sellPath = this.createPathFromData(this.sellData);
-        sellPath.classList.add('chart-line', 'sell-line');
-        chartLines.appendChild(sellPath);
     }
 
     createPathFromData(data) {
