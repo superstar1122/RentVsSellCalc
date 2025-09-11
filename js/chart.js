@@ -208,20 +208,7 @@ class ChartRenderer {
     }
 
     // ---------------------changed by odysseus------------------
-    // drawVerticalLine() {
-    //     // Example: draw a vertical line at year 5 (like in your image)
-    //     const gridLines = document.getElementById('gridLines');
-    //     const x = this.getX(5);
-
-    //     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    //     line.setAttribute('x1', x);
-    //     line.setAttribute('y1', this.margin.top);
-    //     line.setAttribute('x2', x);
-    //     line.setAttribute('y2', this.height - this.margin.bottom);
-    //     line.classList.add('vertical-line');
-    //     gridLines.appendChild(line);
-    // }
-
+    /**------------------start of replaced part---------- */
     drawVerticalLine(year) {
         // Remove previous line if it exists
         let existing = document.getElementById('year-indicator');
@@ -238,7 +225,7 @@ class ChartRenderer {
         line.classList.add('vertical-line');
         document.getElementById('gridLines').appendChild(line);
     }
-    /**---------------end of updated part----------- */
+    /**---------------end of replaced part----------- */
 
     formatValue(value) {
         // Format values as currency (e.g., 195k, 260k, etc.)
