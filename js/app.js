@@ -250,7 +250,7 @@ function populateTable(inputs){
   summary_dif_wealth.textContent = (last.diff>=0? "+" : "-") + $fmt(Math.abs(last.diff));
 }
 
-/* ───────────────────────── SUMMARY UPDATE by odysseus  ─────────────── */
+/* ───────────────────────── SUMMARY UPDATE by superstar  ─────────────── */
 /** ---------------start of inserted part ----------------- */
 function updateSimulation(selectedYear) {
   const inputs = getInputsFromForm();

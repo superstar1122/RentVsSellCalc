@@ -37,7 +37,7 @@ class ChartRenderer {
 
         this.init();
     }
-    /** ------------------- Updated by odysseus ---------------- */
+    /** ------------------- Updated by superstar ---------------- */
     init() {
         this.calculateScales();
         this.drawGrid();
@@ -207,7 +207,7 @@ class ChartRenderer {
         }
     }
 
-    // ---------------------changed by odysseus------------------
+    // ---------------------changed by superstar------------------
     /**------------------start of replaced part---------- */
     drawVerticalLine(year) {
         // Remove previous line if it exists
